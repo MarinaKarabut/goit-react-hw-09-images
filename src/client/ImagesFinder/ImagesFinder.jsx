@@ -25,7 +25,9 @@ const ImagesFinder = () => {
   const [activeImg, setActiveImg] = useState('')
   
   const listRef = useRef();
-  console.log(listRef);
+  const scrollToRef = (ref) => window.scrollTo({ top:ref.current.scrollHeight,  behavior: 'smooth' })
+  const scrollToTop = () => scrollToRef(listRef)
+
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -34,6 +36,10 @@ const ImagesFinder = () => {
               const { data } = await axios.get(url);
               setLoading(false);
               setImages([...images, ...data.hits]);
+              if (page > 1) {
+                 scrollToTop()
+              }
+             
               
             }
             catch(error){
@@ -45,6 +51,7 @@ const ImagesFinder = () => {
         }
 
   }, [searchQuery, page])
+
 
 
   const loadMore = () => {
@@ -65,9 +72,10 @@ const ImagesFinder = () => {
   const toggleModal = (src) => {
     setShowModal(!showModal)
     setActiveImg(src)
+    
   };
 
-  return (
+  return (  
     
       <>
         {showModal && <Modal onClose={toggleModal}>
@@ -78,7 +86,8 @@ const ImagesFinder = () => {
 
         {error && <ErrorMessage text={error} />}
         
-        <div ref={listRef}>
+      <div ref={listRef} >
+         
       <ImageGallery images={images} onClick={toggleModal}/>
       
         </div>
