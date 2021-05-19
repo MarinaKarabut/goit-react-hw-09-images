@@ -46,13 +46,6 @@ const ImagesFinder = () => {
 
   }, [searchQuery, page])
 
-  //  if(loading) {
-  //       return <p>...Loading</p>
-  //   }
-
-  //   if(error){
-  //       return <p>...Something was wrong</p>
-  //   }
 
   const loadMore = () => {
         const prevPage=page
