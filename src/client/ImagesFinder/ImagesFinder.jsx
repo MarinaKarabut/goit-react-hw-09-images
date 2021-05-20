@@ -24,7 +24,7 @@ const ImagesFinder = () => {
   const [showModal, setShowModal] = useState(false)
   const [activeImg, setActiveImg] = useState('')
   
-  const listRef = useRef();
+  const listRef = useRef(null);
   const scrollToRef = (ref) => window.scrollTo({ top:ref.current.scrollHeight,  behavior: 'smooth' })
   const scrollToTop = () => scrollToRef(listRef)
 
@@ -48,9 +48,10 @@ const ImagesFinder = () => {
         }
         if(loading){
             fetchImages();
+            
         }
 
-  }, [searchQuery, page])
+  }, [loading,searchQuery, page])
 
 
 
